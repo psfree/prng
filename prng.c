@@ -1,5 +1,4 @@
-#include <iostream>
-#include <ctime>
+#include <time.h>
 #include "TestU01.h"
 
 uint64_t mixstate;
@@ -10,12 +9,11 @@ uint64_t mixbits() {
 	return out ^ (out>>31);
 }
 
-//my own implementation of xorshift 256 
+//my own implementation of xorshift256
 static inline uint64_t rotl(const uint64_t x, int k) {
 	return (x << k) | (x >> (64 - k));
 }
 
-//256 bits of state
 static uint64_t state[4];
 
 uint64_t next() {
@@ -49,7 +47,7 @@ int main(int argc, char * argv[]) {
 	state[3] = mixbits();
 
 	unif01_Gen* gen = unif01_CreateExternGenBits("liamxor", lol);
-	bbattery_SmallCrush(gen);
+	bbattery_BigCrush(gen);
 	unif01_DeleteExternGenBits(gen);
 	return 0;
 }
